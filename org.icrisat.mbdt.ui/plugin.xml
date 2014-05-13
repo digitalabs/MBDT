@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.icrisat.mbdt.ui.perspectives.MBDTPerspective"
+            id="org.icrisat.mbdt.ui.perspectives.MBDTPerspective"
+            name="mbdt">
+      </perspective>
+   </extension>
+   
+
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.ui.views.AccessionListView"
+            id="org.icrisat.mbdt.ui.views.AccessionListView"
+            name="AccessionListView">
+      </view>
+      <view
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.ui.views.SelectedAccessionsView"
+            id="org.icrisat.mbdt.ui.views.SelectedAccessionsView"
+            name="Selected AccessionsView">
+      </view>
+      <view
+            allowMultiple="true"
+            class="org.icrisat.mbdt.ui.views.LinkageMapTableView"
+            id="org.icrisat.mbdt.ui.views.LinkageMapTableView"
+            name="Linkage Map DataView">
+      </view>
+      <view
+            allowMultiple="true"
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.ui.views.GenotypeDataView"
+            id="org.icrisat.mbdt.ui.views.GenotypeDataView"
+            name="GenotypeDataView">
+      </view>
+      <view
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.ui.views.UnScreenedMarkersView"
+            id="org.icrisat.mbdt.ui.views.UnScreenedMarkersView"
+            name="UnScreenedMarkersView">
+      </view>
+      <view
+            class="org.icrisat.mbdt.ui.views.MissingValuesView"
+            id="org.icrisat.mbdt.ui.views.MissingValuesView"
+            name="MissingValuesView">
+      </view>
+      <category
+            id="org.icrisat.mbdt.ui.viewCategory"
+            name="MBDT">
+      </category>
+      <view
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.ui.views.PhenotypeDataView"
+            id="org.icrisat.mbdt.ui.views.PhenotypeDataView"
+            name="Phenotype Data View">
+      </view>
+      <view
+            class="org.icrisat.mbdt.ui.views.MbdtProjectExplorer"
+            id="org.icrisat.mbdt.ui.views.MbdtProjectExplorer"
+            name="Project Explorer"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.icrisat.mbdt.ui.UploadActionSet"
+            label="IsmabUpload">
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.UploadAction"
+               id="org.icrisat.mbdt.ui.actionSets.UploadAction"
+               label="Upload Genotype"
+               menubarPath="additions"
+              >
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.UploadAction"
+               id="org.icrisat.mbdt.ui.actionSets.UploadAction"
+               label="Upload LinkageMap"
+               menubarPath="additions"
+               toolbarPath="additions">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.UploadAction"
+               id="org.icrisat.mbdt.ui.actionSets.UploadAction"
+               label="Import Files"
+               menubarPath="file/org.icrisat.mbdt.ui.MbdtMenu"
+               style="push"
+               toolbarPath="additions"
+               tooltip="Menu">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.UploadQTLAction"
+               id="org.icrisat.mbdt.ui.actionSets.UploadQTLAction"
+               label="Upload QTL"
+               menubarPath="additions"
+               style="push"
+               toolbarPath="additions"
+               tooltip="QTL">
+         </action>
+         <menu
+               id="org.icrisat.mbdt.ui.MbdtMenu"
+               label="Import File"
+               path="file/additions">
+         </menu>
+      </actionSet>
+      <actionSet
+            id="org.icrisat.mbdt.ui.ProjectactionSet"
+            label="View"
+            visible="true">
+         <menu
+               id="org.icrisat.mbdt.ui.Projectmenu"
+               label="View"
+               path="file">
+            <groupMarker
+                  name="org.icrisat.mbdt.ui.MBDTMenu">
+            </groupMarker>
+         </menu>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.MissingValueAction"
+               id="org.icrisat.mbdt.ui.actionSets.MissingValueAction"
+               label="Missing Values"
+               menubarPath="View/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.SortingMarkersAction"
+               id="org.icrisat.mbdt.ui.action1"
+               label="Sorting Markers"
+               menubarPath="window/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.LinkageMapTableAction"
+               id="org.icrisat.mbdt.ui.actionSets.LinkageMapTableAction"
+               label="Linkage Map"
+               menubarPath="View/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.PhenotypeDataAction"
+               id="org.icrisat.mbdt.ui.actionSets.PhenotypeDataAction"
+               label="Phenotype Data"
+               menubarPath="View/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.ChromosomeDataAction"
+               id="org.icrisat.mbdt.ui.actionSets.ChromosomeDataAction"
+               label="Chromosome View"
+               menubarPath="View/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.ExitAction"
+               id="org.icrisat.mbdt.ui.actionSets.ExitAction"
+               label="Exit"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.SaveToDatabaseAction"
+               id="org.icrisat.mbdt.ui.actionSets.SaveToDatabaseAction"
+               label="Save to Database"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actions.SaveAction"
+               id="org.icrisat.mbdt.ui.actions.SaveAction"
+               label="Save"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.LoadFromDatabaseAction"
+               id="org.icrisat.mbdt.ui.actionSets.LoadFromDatabaseAction"
+               label="Load From Database"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.LoadTargetDataAction"
+               id="org.icrisat.mbdt.ui.actionSets.LoadTargetDataAction"
+               label="Load Target"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actions.LoadAction"
+               id="org.icrisat.mbdt.ui.actions.LoadAction"
+               label="Open"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.NewProjectImportAction"
+               id="org.icrisat.mbdt.ui.actionSets.NewProjectImportAction"
+               label="New Project"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="org.icrisat.mbdt.ui.wizardCategory"
+            name="mbdt WizardCategory">
+      </category>
+      <wizard
+            category="org.icrisat.mbdt.ui.wizardCategory"
+            class="org.icrisat.mbdt.ui.wizards.FilesImportWizard"
+            icon="icons/upload.gif"
+            id="org.icrisat.mbdt.ui.wizards.FilesImportWizard"
+            name="New Project">
+         <description>
+            Upload Files
+         </description>
+      </wizard>
+      <wizard
+            category="org.icrisat.mbdt.ui.wizardCategory"
+            class="org.icrisat.mbdt.ui.wizards.LoadTargetDataWizard"
+            icon="icons/load.gif"
+            id="org.icrisat.mbdt.ui.wizards.LoadTargetDataWizard"
+            name="Load Target Data">
+         <description>
+            Loading TargetData for selected Project
+         </description>
+      </wizard>
+      <wizard
+            category="org.icrisat.mbdt.ui.wizardCategory"
+            class="org.icrisat.mbdt.ui.wizards.LoadFromDatabaseWizard"
+            id="org.icrisat.mbdt.ui.wizards.LoadFromDatabaseWizard"
+            name="Load from Database">
+         <description>
+            Load files from Database
+         </description>
+      </wizard>
+   </extension>
+    
+    
+
+</plugin>

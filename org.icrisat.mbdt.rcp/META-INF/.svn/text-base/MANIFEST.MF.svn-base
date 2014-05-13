@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rcp Plug-in
+Bundle-SymbolicName: org.icrisat.ismab.rcp; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.icrisat.ismab.rcp.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.icrisat.ismab.model,
+ org.icrisat.ismab.ui,
+ org.icrisat.ismab.gef,
+ org.eclipse.ui.ide,
+ org.icrisat.ismab.lims
+Eclipse-LazyStart: true

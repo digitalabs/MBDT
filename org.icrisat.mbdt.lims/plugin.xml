@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.icrisat.mbdt.lims.limsCategory"
+            class="org.icrisat.mbdt.lims.views.LimsMarkersInputView"
+            icon="icons/view.gif"
+            id="org.icrisat.mbdt.lims.views.LimsMarkersInputView"
+            name="LIMS  list of Markers">
+      </view>
+      <category
+            id="org.icrisat.mbdt.lims.limsCategory"
+            name="LIMS Category">
+      </category>
+      <view
+            category="org.icrisat.mbdt.lims.limsCategory"
+            class="org.icrisat.mbdt.lims.views.CreatingLIMSSubSetView"
+            icon="icons/view.gif"
+            id="org.icrisat.mbdt.lims.views.CreatingLIMSSubSetView"
+            name="LIMS Subset View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.icrisat.mbdt.lims.LimsInputactionSet"
+            label="Lims InputAction"
+            visible="true">
+         <menu
+               id="org.icrisat.mbdt.lims.LimsInputMenu"
+               label="Lims Input"
+               path="file">
+            <groupMarker
+                  name="LimsMenuGroup">
+            </groupMarker>
+         </menu>
+         <action
+               class="org.icrisat.mbdt.lims.actionSets.LimsMarkersInputAction"
+               id="org.icrisat.mbdt.lims.actionSets.LimsMarkersInputAction"
+               label="Lims Markers"
+               menubarPath="org.icrisat.mbdt.lims.LimsInputMenu/LimsMenuGroup"
+               tooltip="Lims Markers">
+         </action>
+         <action
+               class="org.icrisat.mbdt.lims.actionSets.LimsInputAction"
+               id="org.icrisat.mbdt.lims.actionSets.LimsInputAction"
+               label="Lims Accessions"
+               menubarPath="org.icrisat.mbdt.lims.LimsInputMenu/LimsMenuGroup"
+               tooltip="Lims Accessions">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.icrisat.mbdt.ui.perspectives.MBDTPerspective">
+         <view
+               id="org.icrisat.mbdt.lims.views.LimsMarkersInputView"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss"
+               visible="false">
+         </view>
+         <view
+               id="org.icrisat.mbdt.lims.views.CreatingLIMSSubSetView"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss"
+               visible="false">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>

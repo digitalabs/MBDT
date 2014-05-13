@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true"
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.gef.views.GraphicalView"
+            id="org.icrisat.mbdt.gef.views.GraphicalView"
+            name="Graphical View">
+      </view>
+      <view
+            allowMultiple="true"
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.gef.views.TargetGenotype"
+            id="org.icrisat.mbdt.gef.views.TargetGenotype"
+            name="TargetGenotype View">
+      </view>
+      <view
+            allowMultiple="true"
+            category="org.icrisat.mbdt.ui.viewCategory"
+            class="org.icrisat.mbdt.gef.views.ChromosomeView"
+            id="org.icrisat.mbdt.gef.views.ChromosomeView"
+            name="Chromosome View"
+            restorable="false">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.icrisat.mbdt.ui.perspectives.MBDTPerspective">
+         <view
+               id="org.icrisat.mbdt.gef.views.GraphicalView"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.icrisat.mbdt.gef.views.TargetGenotype"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.icrisat.mbdt.gef.preferences.ColorEditorPage"
+            id="org.icrisat.mbdt.gef.preferences.ColorEditorPage"
+            name="Color Editor">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            class="org.icrisat.mbdt.gef.wizards.ShowHiddenElementsWizard"
+            id="org.icrisat.mbdt.gef.wizards.ShowHiddenElementsWizard"
+            name="Show Hidden Elements">
+      </wizard>
+   </extension>
+
+</plugin>

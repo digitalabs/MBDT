@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rcp Plug-in
+Bundle-SymbolicName: org.icrisat.mbdt.rcp;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.icrisat.mbdt.rcp.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.icrisat.mbdt.model;bundle-version="1.0.2",
+ org.icrisat.mbdt.ui;bundle-version="1.0.0",
+ org.icrisat.mbdt.gef;bundle-version="1.0.0",
+ org.eclipse.ui.ide,
+ org.icrisat.mbdt.lims;bundle-version="1.0.0"
+Eclipse-LazyStart: true
+Import-Package: org.eclipse.gef

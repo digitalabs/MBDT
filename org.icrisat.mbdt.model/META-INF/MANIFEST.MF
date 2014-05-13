@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Plug-in
+Bundle-SymbolicName: org.icrisat.mbdt.model
+Bundle-Version: 1.0.2
+Bundle-Activator: org.icrisat.mbdt.model.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.views,
+ org.eclipse.gef
+Eclipse-LazyStart: true
+Export-Package: org.icrisat.mbdt.model,
+ org.icrisat.mbdt.model.Chromosome,
+ org.icrisat.mbdt.model.CommonModel,
+ org.icrisat.mbdt.model.Datavalidation,
+ org.icrisat.mbdt.model.GenotypeModel,
+ org.icrisat.mbdt.model.LinkageMapModel,
+ org.icrisat.mbdt.model.NextGeneration,
+ org.icrisat.mbdt.model.PhenotypeModel,
+ org.icrisat.mbdt.model.QTLModel,
+ org.icrisat.mbdt.model.TargetGenotype,
+ org.icrisat.mbdt.model.loader,
+ org.icrisat.mbdt.model.notifiers,
+ org.icrisat.mbdt.model.sessions
+Bundle-ClassPath: .,
+ middleware-2.1.0-jar-with-dependencies.jar

@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lims Plug-in
+Bundle-SymbolicName: org.icrisat.mbdt.lims;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.icrisat.mbdt.lims.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.icrisat.mbdt.gef,
+ org.icrisat.mbdt.model;bundle-version="1.0.2",
+ org.icrisat.mbdt.ui;bundle-version="1.0.0"
+Eclipse-LazyStart: true
+Export-Package: org.icrisat.mbdt.lims,
+ org.icrisat.mbdt.lims.actionSets,
+ org.icrisat.mbdt.lims.views
+Bundle-ClassPath: ostermillerutils_1_05_00.jar,
+ .,
+ jxl.jar

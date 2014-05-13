@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp
+END
+Application.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp/Application.java
+END
+Perspective.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp/Perspective.java
+END
+Activator.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp/Activator.java
+END
+ApplicationActionBarAdvisor.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp/ApplicationActionBarAdvisor.java
+END
+ApplicationWorkbenchAdvisor.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp/ApplicationWorkbenchAdvisor.java
+END
+ApplicationWorkbenchWindowAdvisor.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/18/org.icrisat.ismab.rcp/src/org/icrisat/mbdt/rcp/ApplicationWorkbenchWindowAdvisor.java
+END

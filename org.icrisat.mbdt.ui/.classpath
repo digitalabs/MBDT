@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="lib" path="middleware-2.1.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="/org.icrisat.mbdt.model"/>
+	<classpathentry kind="src" path="/org.icrisat.mbdt.gef"/>
+	<classpathentry kind="lib" path="jxl.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-5.1.15-bin.jar"/>
+	<classpathentry kind="lib" path="ostermillerutils_1_05_00.jar"/>
+	<classpathentry kind="lib" path="sqljdbc_4.0/enu/sqljdbc4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

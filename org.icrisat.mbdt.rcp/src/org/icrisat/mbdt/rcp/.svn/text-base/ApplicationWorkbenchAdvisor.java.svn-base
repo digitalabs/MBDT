@@ -1,0 +1,39 @@
+package org.icrisat.mbdt.rcp;
+
+import org.eclipse.ui.application.IWorkbenchConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+
+	private static final String PERSPECTIVE_ID = "org.icrisat.mbdt.ui.MBDTPerspective";
+
+    public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+        return new ApplicationWorkbenchWindowAdvisor(configurer);
+    }
+
+	public String getInitialWindowPerspectiveId() {
+		return PERSPECTIVE_ID;
+	}
+	
+	/*@Override
+	public boolean preShutdown() {
+		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		String dialogbox = "Question";
+		String question = "Are you sure you want to close this application?";
+		
+		return MessageDialog.openQuestion(shell, dialogbox , question);
+	}*/
+	@Override
+	public void initialize(IWorkbenchConfigurer configurer) {
+		//For SaveAs Dialog box.............
+		/*Bundle ideBundle = Platform.getBundle(IDEWorkbenchPlugin.IDE_WORKBENCH);
+		final String banner = "/icons/full/wizban/saveas_wiz.png";
+		URL url = ideBundle.getEntry(banner);
+		ImageDescriptor desc = ImageDescriptor.createFromURL(url);
+		configurer.declareImage(IDEInternalWorkbenchImages.IMG_DLGBAN_SAVEAS_DLG, desc, true);*/
+		//super.initialize(configurer);
+		//configurer.setSaveAndRestore(true);
+	}
+}
