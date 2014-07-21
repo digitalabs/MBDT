@@ -1,10 +1,14 @@
 package org.icrisat.mbdt.ui.views;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ISelection;
@@ -19,6 +23,14 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
+import org.generationcp.middleware.exceptions.ConfigException;
+import org.generationcp.middleware.exceptions.MiddlewareQueryException;
+import org.generationcp.middleware.manager.DatabaseConnectionParameters;
+import org.generationcp.middleware.manager.ManagerFactory;
+import org.generationcp.middleware.manager.api.GenotypicDataManager;
+import org.generationcp.middleware.manager.api.GermplasmDataManager;
+import org.generationcp.middleware.manager.api.MBDTDataManager;
+import org.generationcp.middleware.pojos.mbdt.SelectedGenotype;
 import org.icrisat.mbdt.gef.views.GraphicalView;
 import org.icrisat.mbdt.model.RootModel;
 import org.icrisat.mbdt.model.CommonModel.LinkageData;
@@ -30,6 +42,9 @@ public class SelectedAccessionsView extends ViewPart implements ISelectionListen
 	private TableViewer tViewer;
 	static int dbCount = 0;
 	LinkageData ldata;
+	DatabaseConnectionParameters local, central;
+	ManagerFactory factory;
+	GermplasmDataManager gmanager;
 	static HashMap type= new HashMap();
 	public SelectedAccessionsView() {
 		// TODO Auto-generated constructor stub
@@ -116,5 +131,63 @@ public class SelectedAccessionsView extends ViewPart implements ISelectionListen
 			tViewer.setInput(selectionPoints);
 		}
 //		performFinish();
+	}
+	public void setLoadAcc(List<SelectedGenotype> acc){
+		List selectionPoints = new ArrayList<Accessions>();
+		
+		RootModel rootModel = RootModel.getRootModel();
+		RootModel rModel = null;
+		LinkageData linkage;
+		if(rootModel.getLoadFlag() == null){				
+			 linkage = LinkageData.getLinkageData();
+		}else{
+			rModel = Session.getInstance().getRootmodel();
+			linkage = rModel.getLinkData();
+		}
+		
+		try {
+			String url = Platform.getLocation().toString().substring(0, Platform.getLocation().toString().lastIndexOf("/")+1);
+			 local = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","local");
+			 central = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","central");
+			 factory = new ManagerFactory(local, central);
+			 gmanager = factory.getGermplasmDataManager();
+		}  catch (Exception e1) {
+		}
+		linkage.setSortval("");
+		String gtype ="", aname ="";
+		try {
+			for(int i =0; i<acc.size(); i++ ) {
+				try {
+					 aname = gmanager.getNamesByGID(acc.get(i).getGid(), null, null).get(0).getNval();
+				} catch (Exception e) {
+				}
+				for(int a = 0; a<rootModel.getGenotype().get(0).getAccessions().size(); a++){
+					if (rootModel.getGenotype().get(0).getAccessions().get(a).getName().equals(aname)){
+				Accessions ap = rootModel.getGenotype().get(0).getAccessions().get(a);
+				type = linkage.getType();
+				if(acc.get(i).getType().toString()=="SD" ||acc.get(i).getType().toString()=="D")
+					gtype = "Donor";
+				else if(acc.get(i).getType().toString()=="SR" ||acc.get(i).getType().toString()=="R")
+					gtype = "Recurrent";
+				if(type == null){
+					type = new HashMap();
+					ap.setType(gtype);
+				}else{
+					ap.setType(gtype);
+				}
+				selectionPoints.add(ap);
+				ap.setLoadAcc(selectionPoints);
+				linkage.setLoadAcc(selectionPoints);
+				type.put(ap.getName(),ap.getType());
+				
+				linkage.setType(type);
+				break;
+					}
+			}
+			linkage.setNGloadSelectedAcc(selectionPoints);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
 	}
 }

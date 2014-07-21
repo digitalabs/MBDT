@@ -55,7 +55,7 @@ import org.icrisat.mbdt.ui.views.UnScreenedMarkersView;
 
 public class LoadAction implements IWorkbenchWindowActionDelegate{
 
-	public static final String ID = "org.icrisat.mbdt.ui.LoadAction";
+	public static final String ID = "org.icrisat.mbdt.ui.actions.LoadAction";
 	private IWorkbenchWindow window;
 	HashMap<Object, Object> targetHashMap = new HashMap<Object, Object>();
 	List<Object> targetGenoList = new ArrayList<Object>();
@@ -65,17 +65,10 @@ public class LoadAction implements IWorkbenchWindowActionDelegate{
 	String mainFolder = "";
 	String folder = "";
 	String subFolder = "";
-//	List<Object> selUnscreenMarkers = new ArrayList<Object>();
 	LinkedHashSet<Object> selUnscreenMarkers = new LinkedHashSet<Object>();
 	Object testObj = "";
 	
-	/*public LoadAction(IWorkbenchWindow window) {
-		super();
-		this.window = window;
-		setId(ID);
-		setText("&Open");
-	}
-	*/
+	
 	
 	public void run(IAction action) {
 			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
@@ -181,7 +174,6 @@ public class LoadAction implements IWorkbenchWindowActionDelegate{
 					        	/**
 					        	 ** For TargetGenotype..... 
 					        	 **/
-//					        	if(rModel.getLoadNextGen().isEmpty()){
 						        	for(int tg = 0; tg < rModel.getGenotype().get(0).getAccessions().get(0).getSelAccforTargetCreation().size(); tg++){
 							        	obj = rModel.getGenotype().get(0).getAccessions().get(0).getSelAccforTargetCreation().get(tg);
 										Object obj1 = ((ArrayList)obj).get(0);
@@ -213,7 +205,6 @@ public class LoadAction implements IWorkbenchWindowActionDelegate{
 										}
 									}
 						        
-//					        	}else{
 					        		if(!rModel.getLoadNextGen().isEmpty()){
 					        		//For hiding views...
 					    			IViewPart iView = PlatformUI.getWorkbench().getActiveWorkbenchWindow ().getActivePage().findView(TargetGenotype.class.getName());
@@ -231,17 +222,16 @@ public class LoadAction implements IWorkbenchWindowActionDelegate{
 					        Session.getInstance().setRootModel(rModel);
 					        
 						} catch (PartInitException e) {
-							// TODO Auto-generated catch block
 						}
 						
 						     
-			            //}
 			            ois.close();
 					} catch (ClassNotFoundException e) {
 					}
 				}  
 
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
             
 

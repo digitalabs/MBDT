@@ -94,8 +94,6 @@ public class LoadFromDatabasePage extends WizardPage implements ModifyListener, 
 		try { 
 			
 			String url = Platform.getLocation().toString().substring(0, Platform.getLocation().toString().lastIndexOf("/")+1);
-//			local = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_groundnut_1_local", "root", "");
-//			central = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_groundnut_central", "root", "");
 			 
 			 local = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","local");
 			 central = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","central");
@@ -177,7 +175,7 @@ public class LoadFromDatabasePage extends WizardPage implements ModifyListener, 
 					qtlid = new ArrayList<String>();
 					
 					for(int i=0;i<qlist.size(); i++){
-						String qname =manager.getDatasetNamesByQtlId(qlist.get(i).getId().getQtlId(), 0,(int) manager.countDatasetNamesByQtlId(qlist.get(i).getId().getQtlId())).get(0);
+						String qname =manager.getDatasetNamesByQtlId(qlist.get(i).getQtlId(), 0,(int) manager.countDatasetNamesByQtlId(qlist.get(i).getQtlId())).get(0);
 						if(!qtlid.contains(qname)){
 							qtlid.add(qname);
 							comboQTL.add(qname);

@@ -38,6 +38,7 @@ filePath = returnString.split("!@!");
 		
 		
 		for(int i = 0 ; i < filePath.length; i++) {
+//			System.out.println("proj"+filePath[0]);
 			if(filePath[i].equalsIgnoreCase("Genotype Dataset")){
 				GenotypeDatasetLoader gLoader = new GenotypeDatasetLoader();
 				// for Genotype File Upload....
@@ -74,7 +75,6 @@ filePath = returnString.split("!@!");
 					LinkageMapDataLoader1 gLoader= new LinkageMapDataLoader1();
 					RootModel gType = gLoader.load(filePath[i+1]);
 				}
-				
 				Session.getInstance().setRootModel(rootModel);
 			}
 			if(filePath[i].equalsIgnoreCase("Phenotype Dataset")) {
@@ -82,9 +82,9 @@ filePath = returnString.split("!@!");
 				//for Phenotype File Upload....
 				PhenotypeDatasetLoader pLoader = new PhenotypeDatasetLoader();
 				RootModel rootModel = pLoader.loadPhenotype(filePath[i+1]);
-								
 				Session.getInstance().setRootModel(rootModel);
 			}
+			
 		
 		}
 		

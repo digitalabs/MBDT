@@ -165,15 +165,23 @@
                style="push">
          </action>
          <action
-               class="org.icrisat.mbdt.ui.actionSets.SaveToDatabaseAction"
+               class="org.icrisat.mbdt.ui.actions.SaveDatabaseAction"
                id="org.icrisat.mbdt.ui.actionSets.SaveToDatabaseAction"
                label="Save to Database"
+               menubarPath="File/additions"
                style="push">
          </action>
          <action
                class="org.icrisat.mbdt.ui.actions.SaveAction"
                id="org.icrisat.mbdt.ui.actions.SaveAction"
                label="Save"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
+               class="org.icrisat.mbdt.ui.actions.LoadProjectAction"
+               id="org.icrisat.mbdt.ui.actions.LoadProjectAction"
+               label="Load Project"
                menubarPath="File/additions"
                style="push">
          </action>
@@ -205,6 +213,18 @@
                menubarPath="File/additions"
                style="push">
          </action>
+         <action
+               class="org.icrisat.mbdt.ui.actionSets.LoadTargetDatabaseAction"
+               id="org.icrisat.mbdt.ui.actionSets.LoadTargetDatabaseAction"
+               label="Load Target From Database"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <menu
+               id="org.icrisat.mbdt.ui.menu1"
+               label="Database"
+               path="File/additions">
+         </menu>
       </actionSet>
    </extension>
    <extension

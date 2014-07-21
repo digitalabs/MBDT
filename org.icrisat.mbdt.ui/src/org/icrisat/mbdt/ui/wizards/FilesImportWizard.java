@@ -1,14 +1,5 @@
 package org.icrisat.mbdt.ui.wizards;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Properties;
-
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Shell;
@@ -45,8 +36,6 @@ public class FilesImportWizard extends Wizard  implements IImportWizard {
 		FilesImportPage page = (FilesImportPage)getPage("FilesImportPage");
 		String returnString = null;
 		returnString = page.getFilePath();
-		String linkageMapPath = null;
-		String qTLPath = null;
 		String[] filePath = null;
 
 		// Splitting the returnString from FileImportPage.java.....
@@ -99,25 +88,7 @@ public class FilesImportWizard extends Wizard  implements IImportWizard {
 			}
 		}
 		
-		//----------------
-//		try { 
-//			
-//			DatabaseConnectionParameters local = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_chickpea_central", "root", "");
-//			DatabaseConnectionParameters central = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_chickpea_central", "root", "");
-//			
-//			ManagerFactory factory = new ManagerFactory(local, central);
-//
-//
-////			DatabaseConnectionParameters local = new DatabaseConnectionParameters("DatabaseConfig.properties", "local");
-////            DatabaseConnectionParameters central = new DatabaseConnectionParameters("DatabaseConfig.properties", "central");
-////            factory = new ManagerFactory(local, central);
-//            GenotypicDataManager manager=factory.getGenotypicDataManager();
-//            
-//            System.out.println("......................  :"+manager.getAllMaps(0, 15, Database.CENTRAL));
-//        } catch (Exception e) { 
-//        	e.printStackTrace();
-//        } 
-		//-----------
+		
 		
 		return true;
 	}
