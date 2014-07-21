@@ -24,3 +24,4 @@ Export-Package: org.icrisat.mbdt.model,
  org.icrisat.mbdt.model.sessions
 Bundle-ClassPath: .,
  middleware-2.1.0-jar-with-dependencies.jar
+Import-Package: javax.servlet

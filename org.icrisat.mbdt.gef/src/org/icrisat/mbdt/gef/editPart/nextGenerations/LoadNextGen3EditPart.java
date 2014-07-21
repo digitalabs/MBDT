@@ -108,10 +108,10 @@ public class LoadNextGen3EditPart extends AbstractGraphicalEditPart implements I
 			int markPos = Math.round(mPos);
 			cumDist = cumDist + markPos;
 			
-			if((lMapMarkerDistances.get(i).equals("0")&& i!=0)&&(TargetMarkers.contains(lMapMarkers.get(i)))){
+			if((lMapMarkerDistances.get(i).equals("0")||(lMapMarkerDistances.get(i).equals("0.0"))&& i!=0)&&(TargetMarkers.contains(lMapMarkers.get(i)))){
 				first = true;
 			}
-			if((!(lMapMarkerDistances.get(i).equals("0") && i!=0))||((lMapMarkerDistances.get(i).equals("0"))&&(chrName.get(i).equals(chrName.get(i-1)))&&(i!=0))) {
+			if((!((lMapMarkerDistances.get(i).equals("0")||(lMapMarkerDistances.get(i).equals("0.0"))) && i!=0))||((lMapMarkerDistances.get(i).equals("0")||(lMapMarkerDistances.get(i).equals("0.0")))&&(chrName.get(i).equals(chrName.get(i-1)))&&(i!=0))) {
 				
 				for(int k = 0; k < TargetMarkers.size(); k++) {
 					if(TargetMarkers.get(k).equals(lMapMarkers.get(i))) {
@@ -212,7 +212,7 @@ public class LoadNextGen3EditPart extends AbstractGraphicalEditPart implements I
 					lMapMarkerDistances.set(i,"0");
 					first = false;
 				}
-			}else if((lMapMarkerDistances.get(i).equals("0"))&&(!linkage.getChromName().get(i).equals(linkage.getChromName().get(i-1)))) {
+			}else if((lMapMarkerDistances.get(i).equals("0")||(lMapMarkerDistances.get(i).equals("0.0")))&&(!linkage.getChromName().get(i).equals(linkage.getChromName().get(i-1)))) {
 				count = i+1;
 				cumDist=0;
 				break;

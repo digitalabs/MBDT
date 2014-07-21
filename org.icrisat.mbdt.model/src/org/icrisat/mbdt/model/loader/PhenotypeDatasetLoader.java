@@ -54,6 +54,7 @@ import org.icrisat.mbdt.model.sessions.Session;
 					manager1 =factory.getCrossStudyDataManager();
 					gmanager = factory.getGermplasmDataManager();
 					int id = phenomanager.getStudyIdByName(filePath);
+					rootModel.setPhenoDataset(id);
 					VariableTypeList vlist = new VariableTypeList();
 					vlist =  phenomanager.getAllStudyVariates(id);
 					/*VariableTypeList flist = new VariableTypeList();

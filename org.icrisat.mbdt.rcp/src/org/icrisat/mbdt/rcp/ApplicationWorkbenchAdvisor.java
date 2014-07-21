@@ -184,7 +184,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 		        Session.getInstance().setRootModel(rModel);
 		        
 			} catch (PartInitException e) {
-				// TODO Auto-generated catch block
 			}
 			
 			     

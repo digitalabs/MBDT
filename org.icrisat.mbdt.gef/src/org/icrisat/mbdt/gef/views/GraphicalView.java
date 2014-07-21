@@ -539,16 +539,16 @@ public class GraphicalView extends ViewPart implements ISelectionListener, ILoad
                                     if(selection=="linkage"){
                                                 for(int l=0;l<rootModel.getLinkagemap().get(0).getChromosomes().size();l++){
                                                 	if(pp1.contains(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker())){
-                                                            mstatus.put(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker(), "Background");
-                                                            rootModel.getLinkagemap().get(0).getChromosomes().get(l).setForestatus("Background");
-                                                            if((foregroundMarkers.contains(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker()))){
-                                                                        foregroundMarkers.remove(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker());
+	                                                            mstatus.put(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker(), "Background");
+	                                                            rootModel.getLinkagemap().get(0).getChromosomes().get(l).setForestatus("Background");
+	                                                            if((foregroundMarkers.contains(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker()))){
+	                                                                        foregroundMarkers.remove(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker());
+	                                                            }
+	                                                            if((flankingMarkers.contains(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker()))){
+	                                                            	flankingMarkers.remove(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker());
+	                                                            }
                                                             }
-                                                            if((flankingMarkers.contains(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker()))){
-                                                            	flankingMarkers.remove(rootModel.getLinkagemap().get(0).getChromosomes().get(l).getMap_marker());
-                                                    }
-                                                            }
-                                                            }
+                                                     }
                                                 rootModel.getLinkagemap().get(0).getChromosomes().get(0).setMstatus(mstatus);
                                                 selection="";
                                                 pp1.clear();
@@ -1604,6 +1604,7 @@ phenosort = new Action("Sort w.r.t. Phenotype", SWT.KeyDown){
 			IStructuredSelection ss= (IStructuredSelection) selection;
 			List<String> getSelAcc= new ArrayList<String>();
 			List selectionPoints= new ArrayList<Accessions>();
+			List<Accessions> selacc = new ArrayList<Accessions>();
 			RootModel rootModel1 = RootModel.getRootModel();
 			LinkageData linkage;
 			if(rootModel1.getLoadFlag() == null){
@@ -1622,6 +1623,7 @@ phenosort = new Action("Sort w.r.t. Phenotype", SWT.KeyDown){
 				SelectedAccessions1 selAcc1= new SelectedAccessions1();
 				SortedMarkers smarkers=new SortedMarkers();
 				Accessions accessions = (Accessions)iterator.next();
+				selacc.add(accessions);
 				GenotypeMarkers genotypeMarkers=new GenotypeMarkers();
 				String gh= accessions.getName();
 				if(first == 0) {
@@ -1633,6 +1635,7 @@ phenosort = new Action("Sort w.r.t. Phenotype", SWT.KeyDown){
 				
 				selectionPoints.add(accessions.getName());		
 				accessions.setSelectedAccessions1(selectionPoints);
+				linkage.setSelectedAccessions(selacc);
 				List allellic = accessions.getAlleValues();
 				
 				getSelAcc.add(gh);

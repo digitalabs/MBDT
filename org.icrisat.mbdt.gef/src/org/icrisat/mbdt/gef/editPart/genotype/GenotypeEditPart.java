@@ -106,6 +106,7 @@ public class GenotypeEditPart extends AbstractGraphicalEditPart {
 			linkage.setAccWithLabels(result1);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return result;
 	}

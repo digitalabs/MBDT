@@ -76,6 +76,17 @@ public class RootModel implements Serializable {
 	String PhenotypePath;
 	String qtlPath;
 	String GenotypePath;
+	
+	//	 database parameters
+	int genotypeDataset;
+	int MapDataset;
+	int QtlDataset;
+	int PhenoDataset;
+	
+	 
+	
+
+	
 	/*String projectName;
 	public String getProjectName() {
 		return projectName;
@@ -84,6 +95,38 @@ public class RootModel implements Serializable {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}*/
+
+	public int getGenotypeDataset() {
+		return genotypeDataset;
+	}
+
+	public void setGenotypeDataset(int genotypeDataset) {
+		this.genotypeDataset = genotypeDataset;
+	}
+
+	public int getMapDataset() {
+		return MapDataset;
+	}
+
+	public void setMapDataset(int mapDataset) {
+		MapDataset = mapDataset;
+	}
+
+	public int getQtlDataset() {
+		return QtlDataset;
+	}
+
+	public void setQtlDataset(int qtlDataset) {
+		QtlDataset = qtlDataset;
+	}
+
+	public int getPhenoDataset() {
+		return PhenoDataset;
+	}
+
+	public void setPhenoDataset(int phenoDataset) {
+		PhenoDataset = phenoDataset;
+	}
 
 	public String getLinkageMap_Chromfirst() {
 		return LinkageMap_Chromfirst;

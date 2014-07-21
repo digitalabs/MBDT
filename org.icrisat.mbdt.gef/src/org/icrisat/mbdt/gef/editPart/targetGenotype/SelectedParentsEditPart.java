@@ -75,7 +75,7 @@ public class SelectedParentsEditPart extends AbstractGraphicalEditPart {
 						if(i2+1 == width.size()) {
 							l=i2;
 						}
-						if((width.get(l).equals("0") ||width.get(l).equals("0.0") || (i2+1 == width.size()))&&(!lk.getChromName().get(l).equals(lk.getChromName().get(l-1)))) {
+						if((width.get(l).equals("0") ||width.get(l).equals("0.0") || (i2+1 == width.size()))) {
 							Float chrWid= Float.parseFloat((String) width.get(i2));
 							chrWidth= Math.round(chrWid);
 							fig.setBackgroundColor(ColorConstants.lightGray);

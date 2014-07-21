@@ -52,21 +52,16 @@ import org.icrisat.mbdt.model.sessions.SessionChromosome;
 				
 			
 
-					try {
-//						local = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_groundnut_central", "root", "");
-//						central = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_groundnut_central", "root", "");
+				try {
+					String url = Platform.getLocation().toString().substring(0, Platform.getLocation().toString().lastIndexOf("/")+1);
+					local = new DatabaseConnectionParameters(url+"DatabaseConfig.properties", "local");
+					central = new DatabaseConnectionParameters(url+"DatabaseConfig.properties", "central");
 
-//						local = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_cowpea_2_local", "root", "");
-//						central = new DatabaseConnectionParameters("localhost", "13306", "ibdbv2_cowpea_central", "root", "");
-						String url = Platform.getLocation().toString().substring(0, Platform.getLocation().toString().lastIndexOf("/")+1);
-						 local = new DatabaseConnectionParameters(url+"DatabaseConfig.properties", "local");
-						 central = new DatabaseConnectionParameters(url+"DatabaseConfig.properties", "central");
-						
-						factory = new ManagerFactory(local, central);
-						manager=factory.getGenotypicDataManager();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					factory = new ManagerFactory(local, central);
+					manager=factory.getGenotypicDataManager();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 					
 					List<DatasetElement> dbdtls = new ArrayList();
 					List<AllelicValueWithMarkerIdElement> resultset=new ArrayList();
@@ -76,6 +71,7 @@ import org.icrisat.mbdt.model.sessions.SessionChromosome;
 					dbdtls = manager.getDatasetDetailsByDatasetName(filePath, Database.CENTRAL) ;
 					dtype = dbdtls.get(0).getDatasetType();
 					did =  dbdtls.get(0).getDatasetId();
+					rootModel.setGenotypeDataset(did);
 					markerId = manager.getMarkerIdsByDatasetId(did);
 					String mark="DatasetID\tGenotype/Marker";
 					

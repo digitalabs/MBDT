@@ -1,8 +1,10 @@
 package org.icrisat.mbdt.gef.views;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
@@ -36,6 +39,11 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.part.ViewPart;
+import org.generationcp.middleware.exceptions.ConfigException;
+import org.generationcp.middleware.manager.DatabaseConnectionParameters;
+import org.generationcp.middleware.manager.ManagerFactory;
+import org.generationcp.middleware.manager.api.GermplasmDataManager;
+import org.generationcp.middleware.pojos.mbdt.SelectedGenotype;
 import org.icrisat.mbdt.gef.editPart.genotype.ExampleAddChildCommand;
 import org.icrisat.mbdt.gef.editPartFactory.TargetGenotypeEditPartFactory;
 import org.icrisat.mbdt.model.RootModel;
@@ -88,7 +96,9 @@ public class TargetGenotype extends ViewPart implements ILoadNotifierTargetGenot
 	String prevhjValue = "";
 	String prevAccType = "";
 	List<String> check= new ArrayList<String>();
-	
+	DatabaseConnectionParameters local, central;
+	ManagerFactory factory;
+	GermplasmDataManager gmanager;
 	@Override
 	public void createPartControl(Composite parent) {
 
@@ -411,11 +421,6 @@ public class TargetGenotype extends ViewPart implements ILoadNotifierTargetGenot
 		// TODO Auto-generated method stub
 	}
 
-	
-	
-	
-	
-	
 	int cat=0;
 	static int mark=0, prevSize= 0;
 	static String prevSel= null;
@@ -963,7 +968,8 @@ public class TargetGenotype extends ViewPart implements ILoadNotifierTargetGenot
 		}
 	}
 	}
-	public void hookContextMenu() {
+	
+public void hookContextMenu() {
 		MenuManager mgr= new MenuManager();
 		mgr.setRemoveAllWhenShown(true);
 		mgr.addMenuListener(new IMenuListener() {
@@ -998,24 +1004,148 @@ public class TargetGenotype extends ViewPart implements ILoadNotifierTargetGenot
 		// TODO Auto-generated method stub
 	}
 	
-		public void refresh() {
-			TargetGeno target = null;
-			RootModel rootModel =  RootModel.getRootModel();
+	public void refresh() {
+		TargetGeno target = null;
+		RootModel rootModel =  RootModel.getRootModel();
 //			System.out.println("Flag in Target Refresh :"+rootModel.getLoadFlag());
-			if(rootModel.getLoadFlag() == null){
-				target = TargetGeno.getTargetGeno();
-				rootModel = RootModel.getRootModel();
-				
-			}else{	
-				target = SessionTargetGenotype.getInstance().getTargetGeno();
-				rootModel = Session.getInstance().getRootmodel();
-			}
-			ref="";
-			SessionTargetGenotype.getInstance().setTargetGeno(target);
+		if(rootModel.getLoadFlag() == null){
+			target = TargetGeno.getTargetGeno();
+			rootModel = RootModel.getRootModel();
 			
+		}else{	
+			target = SessionTargetGenotype.getInstance().getTargetGeno();
+			rootModel = Session.getInstance().getRootmodel();
+		}
+		ref="";
+		SessionTargetGenotype.getInstance().setTargetGeno(target);
+		
 //			Session.getInstance().setRootModel(rootModel);
+	}
+
+	public void setParentData(List<String> parent) throws FileNotFoundException, IOException{ 
+		TargetGeno tGeno = TargetGeno.getTargetGeno();
+		RootModel rootModel = Session.getInstance().getRootmodel();
+		LinkageData ldata;
+		if(rootModel.getLoadFlag() == null){
+			rootModel = RootModel.getRootModel();
+			ldata=LinkageData.getLinkageData();
+		}else{
+			rootModel = Session.getInstance().getRootmodel();
+			ldata = rootModel.getLinkData();
 		}
 
-		
+
+		try {
+			tGeno.getParents().clear();
+			hj.clear();
+			typeList.clear();
+			mark= 0;
+			prevSize= 0;
+			isTargetgenotype=false;
+			
+			for(int i =0; i< parent.size(); i++){
+			hj.add(parent.get(i));
+			i++;
+			typeList.add(parent.get(i));
+			
+			}
+			List<String> gh = new ArrayList<String>();
+			List<String> typeGh= new ArrayList<String>();
+			gh.addAll(hj);
+			typeGh.addAll(typeList);
+			
+			MarkersSelectedParents mParents;
+			List<String> newAcc= rootModel.getAccession();
+			List<String> chrName= rootModel.getChrNo();
+			List<String> markerName= rootModel.getMarkerName();
+			List<Integer> markerPosition= rootModel.getMarkerPosition();
+			List<Integer> markerPrevPos= rootModel.getMarkerPrevPos();
+			List<Integer> markerNextPos= rootModel.getMarkerNextPos();
+			List<String> alleleValue= rootModel.getAccAllele();
+			List<String> label= rootModel.getLabel();
+			List<Object> listSelacc = new ArrayList();
+				try {
+						for(int h = 0; h < gh.size(); h++){
+							Parents parents= new Parents();
+							SelectedParents sp= new SelectedParents();
+							mParents= new MarkersSelectedParents();
+							parents.setParent(gh.get(h).toString());
+							parents.setType(typeGh.get(h).toString());							
+							sp.setSelectedParents(gh.get(h).toString());
+							mParents.setSelectedParents(gh.get(h).toString());
+							mParents.setType(typeGh.get(h).toString());
+							sp.setChrNo(chrName);
+							mParents.setAccession(newAcc);
+							mParents.setChrNo(chrName);		
+							mParents.setMarkerName(markerName);
+							mParents.setMarkerPosition(markerPosition);
+							mParents.setMarkerPrevPos(markerPrevPos);
+							mParents.setMarkerNextPos(markerNextPos);
+							mParents.setLabel(label);
+							mParents.setTargetAlleleValue(alleleValue);
+							sp.getMParents().add(mParents);
+							parents.getSelParents().add(sp);
+							tGeno.getParents().add(parents);
+//							SessionTargetGenotype.getInstance().setTargetGeno(tGeno);
+							
+							if(typeGh.get(h).toString().equals("Recurrent")){
+								jjType = gh.get(h).toString();								
+							}
+						
+							/*for(int tg = 0; tg < rootModel.getGenotype().get(0).getAccessions().size(); tg++){
+								for(int ii = 0; ii < rootModel.getGenotype().get(0).getAccessions().get(tg).getSelectedAccessions().size(); ii++){
+									if(rootModel.getGenotype().get(0).getAccessions().get(tg).getName().equals(gh.get(h).toString())){
+										listSelacc.add(rootModel.getGenotype().get(0).getAccessions().get(tg).getSelectedAccessions().get(ii).getSelacc1().get(0).getGenotypeMarkers());
+									}	
+								}
+							}*/
+					}
+						List<String> allval= rootModel.getAccAllele();
+						Parents parents= new Parents();
+						SelectedParents sp= new SelectedParents();
+						mParents= new MarkersSelectedParents();
+						parents.setParent(jjType+"Target");	
+						parents.setType("Target");
+						sp.setSelectedParents(jjType+"Target");
+						mParents.setSelectedParents(jjType+"Target");
+						mParents.setType("Target");
+						sp.setChrNo(chrName);
+						mParents.setAccession(newAcc);
+						mParents.setChrNo(chrName);
+						mParents.setMarkerName(markerName);
+						mParents.setMarkerPosition(markerPosition);
+						mParents.setMarkerPrevPos(markerPrevPos);
+						mParents.setMarkerNextPos(markerNextPos);
+						mParents.setLabel(label);
+						mParents.setTargetAlleleValue(allval);
+						mParents.setTargetAlleleValue(alleleValue);
+						sp.getMParents().add(mParents);
+						parents.getSelParents().add(sp);
+						tGeno.getParents().add(parents);
+						hj.clear();
+						typeList.clear();
+						mark= 0;
+						tGeno.setTcreate("create");
+						rootModel.setSaveType("TargetDataAvailable");
+						tlcount =1;
+						/*for(int tg = 0; tg < rootModel.getGenotype().get(0).getAccessions().size(); tg++){
+							rootModel.getGenotype().get(0).getAccessions().get(tg).setSelAccforTargetCreation(listSelacc);
+							
+						}*/
+						Session.getInstance().setRootModel(rootModel);
+						SessionTargetGenotype.getInstance().setTargetGeno(tGeno);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+			
+				
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
+
+	}
+
 	
 }

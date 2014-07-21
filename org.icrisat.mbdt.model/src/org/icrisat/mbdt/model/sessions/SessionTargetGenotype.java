@@ -50,6 +50,7 @@ public class SessionTargetGenotype {
 			try{
 			notifier.notifyLoadTargetGenotype(targetGeno);
 			}catch(Exception e){
+				e.printStackTrace();
 			}
 		}	
 	}

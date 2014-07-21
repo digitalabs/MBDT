@@ -79,6 +79,7 @@ public class QTLDatasetLoader {
 			List<Integer> qtlid =new ArrayList<Integer>();
 			List<Integer> did = new ArrayList<Integer>();
 			did.add(manager.getDatasetDetailsByDatasetName(filePath, Database.CENTRAL).get(0).getDatasetId()); 
+			rootModel.setQtlDataset(manager.getDatasetDetailsByDatasetName(filePath, Database.CENTRAL).get(0).getDatasetId());
 			qtlid=manager.getQTLIdsByDatasetIds(did);
 			qtldetailelement =manager.getQtlByQtlIds(qtlid, 0, (int) manager.countQtlByQtlIds(qtlid));
 			int count = 0;

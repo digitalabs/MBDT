@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.icrisat.mbdt.model.GenotypeModel.Accessions;
+
 public class LinkageData implements Serializable {
 	
 	private LinkageData()
@@ -28,18 +30,12 @@ public class LinkageData implements Serializable {
     List<Object> loadAcc;
 	
     
-    
-    String markerName;
+    List<Accessions> selectedAccessions;
+  
+
+	String markerName;
 	String markerPosition;
 	List<String> marker;
-	public HashMap getFlankmarkers() {
-		return flankmarkers;
-	}
-
-	public void setFlankmarkers(HashMap flankmarkers) {
-		this.flankmarkers = flankmarkers;
-	}
-
 	List<String> foregroundMarker;
 	List<String> flankingMarker;
 	HashMap flankmarkers;
@@ -51,56 +47,9 @@ public class LinkageData implements Serializable {
 	boolean flanking;
 	HashMap markerData;
 	
-	public List<String> getFlankingMarker() {
-		return flankingMarker;
-	}
-
-	public void setFlankingMarker(List<String> flankingMarker) {
-		this.flankingMarker = flankingMarker;
-	}
-
-	public HashMap getMarkerData() {
-		return markerData;
-	}
-
-	public void setMarkerData(HashMap markerData) {
-		this.markerData = markerData;
-	}
-
-	public boolean isMissing() {
-		return missing;
-	}
-
-	public void setMissing(boolean missing) {
-		this.missing = missing;
-	}
-
-	public boolean isFlanking() {
-		return flanking;
-	}
-
-	public void setFlanking(boolean flanking) {
-		this.flanking = flanking;
-	}
-
-	public boolean isDart() {
-		return Dart;
-	}
-
-	public void setDart(boolean dart) {
-		Dart = dart;
-	}
-
 	HashMap missingCount;
 	HashMap flankingCount;
-	public HashMap getFlankingCount() {
-		return flankingCount;
-	}
-
-	public void setFlankingCount(HashMap flankingCount) {
-		this.flankingCount = flankingCount;
-	}
-
+	
 	int bcount;
 	int mcount;
 	int fcount;
@@ -142,9 +91,82 @@ public class LinkageData implements Serializable {
 	List<String> chromlist; 
 	HashMap linkage;
 	HashMap chromPos;
-	
-	
 	boolean cview;
+	
+	
+	
+
+	public List<Accessions> getSelectedAccessions() {
+		if(selectedAccessions == null){
+			selectedAccessions = new ArrayList<Accessions>();
+		}
+		return selectedAccessions;
+	}
+
+	public void setSelectedAccessions(List<Accessions> selectedAccessions) {
+		this.selectedAccessions = selectedAccessions;
+	}
+
+	public HashMap getFlankmarkers() {
+		return flankmarkers;
+	}
+
+	public void setFlankmarkers(HashMap flankmarkers) {
+		this.flankmarkers = flankmarkers;
+	}
+
+	
+	
+	public List<String> getFlankingMarker() {
+		return flankingMarker;
+	}
+
+	public void setFlankingMarker(List<String> flankingMarker) {
+		this.flankingMarker = flankingMarker;
+	}
+
+	public HashMap getMarkerData() {
+		return markerData;
+	}
+
+	public void setMarkerData(HashMap markerData) {
+		this.markerData = markerData;
+	}
+
+	public boolean isMissing() {
+		return missing;
+	}
+
+	public void setMissing(boolean missing) {
+		this.missing = missing;
+	}
+
+	public boolean isFlanking() {
+		return flanking;
+	}
+
+	public void setFlanking(boolean flanking) {
+		this.flanking = flanking;
+	}
+
+	public boolean isDart() {
+		return Dart;
+	}
+
+	public void setDart(boolean dart) {
+		Dart = dart;
+	}
+
+	
+	public HashMap getFlankingCount() {
+		return flankingCount;
+	}
+
+	public void setFlankingCount(HashMap flankingCount) {
+		this.flankingCount = flankingCount;
+	}
+
+	
 	
 	public HashMap<String, List<String>> getFlankingindividual() {
 		return flankingindividual;

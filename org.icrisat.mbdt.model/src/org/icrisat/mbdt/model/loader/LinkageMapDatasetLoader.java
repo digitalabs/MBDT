@@ -77,8 +77,19 @@ import org.icrisat.mbdt.model.sessions.SessionChromosome;
 				
 				factory = new ManagerFactory(local, central);
 				manager=factory.getGenotypicDataManager();
-				filePath = filePath.substring(0, filePath.lastIndexOf(" ("));
-				mapinfo = manager.getMapInfoByMapName(filePath,  Database.CENTRAL);
+				try {
+					filePath = filePath.substring(0, filePath.lastIndexOf(" ("));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				mapinfo = manager.getMapInfoByMapName(filePath);
+				try {
+					rootModel.setMapDataset(mapinfo.get(0).getMapId());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String str;
 				int countj=0;
 				LinkageData linkData= LinkageData.getLinkageData();

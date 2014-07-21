@@ -61,8 +61,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     protected void fillMenuBar(IMenuManager menuBar) {
     	MenuManager fileMenu= new MenuManager("File", IWorkbenchActionConstants.M_FILE);
-//    	fileMenu.add(importAction);
-    	
+//    	
+//    	MenuManager dbMenu= new MenuManager("Database", IWorkbenchActionConstants.NEW_GROUP);
+//    	fileMenu.add(new Group());
     	MenuManager windowMenu= new MenuManager("Windows", IWorkbenchActionConstants.M_WINDOW);
     	windowMenu.add(preferencesAction);
 //    	windowMenu.add(views);
