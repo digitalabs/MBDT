@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="MBDT1.0.3" id="org.icrisat.mbdt.rcp.product" application="org.icrisat.mbdt.rcp.application" useFeatures="false" includeLaunchers="false">
+<product name="MBDT1.0.3" id="org.icrisat.mbdt.rcp.product" application="org.icrisat.mbdt.rcp.application" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/org.icrisat.mbdt.rcp/icons/eclipse_lg.gif"/>

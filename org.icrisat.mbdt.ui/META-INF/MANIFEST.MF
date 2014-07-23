@@ -51,6 +51,3 @@ Bundle-ClassPath: ostermillerutils_1_05_00.jar,
  javax.ws.rs-api-2.0.jar,
  .,
  middleware-2.1.0-jar-with-dependencies.jar
-Import-Package: 
- org.icrisat.mbdt.ui.wizards;version="1.0.0";resolution:=optional
-

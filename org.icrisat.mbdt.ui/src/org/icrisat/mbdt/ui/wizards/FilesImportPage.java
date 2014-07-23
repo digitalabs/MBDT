@@ -69,16 +69,15 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 
 	public void createControl(Composite parent) {
 		setPageComplete(false);
+		System.err.println();
+		
 		Composite container = new Composite(parent,SWT.NONE);
 //		container.setLayout(new GridLayout(2,false));
 		GridLayout gridLayout = new GridLayout();
-		
  		gridLayout.numColumns = 3;
- 		
  		container.setLayout(gridLayout);
 		
-		for(int i=0; i<4;i++){
-			if(i==0){
+ 		try{
 				label1 = new Label(container,SWT.NONE);
 				label1.setText("Genotype File");
 				
@@ -103,7 +102,7 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 			
 				 new Label(container, SWT.NULL);
 				
-			}else if(i==1){
+			
 				label2 = new Label(container,SWT.NONE);
 				label2.setText("Linkage Map File");
 				
@@ -114,7 +113,6 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 				btn2 = new Button(container,SWT.NONE);
 				btn2.setText(" Browse");
 				btn2.addSelectionListener(this);
-			}else if(i==2){
 				label3 = new Label(container,SWT.NONE);
 				label3.setText("QTL File");
 				
@@ -125,7 +123,7 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 				btn3 = new Button(container,SWT.NONE);
 				btn3.setText("Browse ");
 				btn3.addSelectionListener(this);
-			}else if(i==3){
+			
 				label4 = new Label(container,SWT.NONE);
 				label4.setText("Phenotype File");
 				
@@ -136,10 +134,7 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 				btn4 = new Button(container,SWT.NONE);
 				btn4.setText(" Browse ");
 				btn4.addSelectionListener(this);
-			}
 			
-					
-		}	
 		Group group = new Group(container, SWT.NONE);
 		GridData layoutData2 = new GridData(SWT.FILL, SWT.FILL, true, true);
 		layoutData2.horizontalSpan = 2;
@@ -181,7 +176,9 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 		lblError.setBackground(ColorConstants.white);
 		lblError.setForeground(ColorConstants.red);
 		lblError.setSize(260, 150);
-		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		setControl(container);		
 	}
 
