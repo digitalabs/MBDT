@@ -40,7 +40,6 @@ import org.icrisat.mbdt.ui.wizards.FilesImportWizard;
 						 			
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		

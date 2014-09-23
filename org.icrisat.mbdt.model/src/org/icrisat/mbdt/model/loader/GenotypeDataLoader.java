@@ -70,7 +70,7 @@ public class GenotypeDataLoader{
 			headerList.remove(0);
 			headerList.remove(0);
 			
-			String[] words = {"A", "B", "H"};  
+			String[] words = {"A", "B", "H","C","G","T"};  
 			List<String> wordList = Arrays.asList(words);
 			
 			while((str= br.readLine())!= null) {

@@ -32,6 +32,7 @@ import org.generationcp.middleware.manager.api.GenotypicDataManager;
 import org.generationcp.middleware.manager.api.GermplasmDataManager;
 import org.generationcp.middleware.manager.api.MBDTDataManager;
 import org.generationcp.middleware.manager.api.StudyDataManager;
+import org.generationcp.middleware.pojos.gdms.AccMetadataSet;
 import org.generationcp.middleware.pojos.gdms.MarkerIdMarkerNameElement;
 import org.generationcp.middleware.pojos.gdms.MarkerInfo;
 import org.generationcp.middleware.pojos.mbdt.MBDTGeneration;
@@ -147,18 +148,10 @@ public class LoadProjectAction implements IWorkbenchWindowActionDelegate{
 					RootModel rModel = gLoader.loadGenotype(name);				
 					rModel.setGeneration("First");
 					Session.getInstance().setRootModel(rModel);				
+					
 					//for Linkage Map
-					try {   
-						Class.forName(central.getDriverName());   
-						connection = DriverManager.getConnection(central.getUrl(), central.getUsername(), central.getPassword());   
-						statement = connection.createStatement();   
-						resultSet = statement.executeQuery("SELECT map_name from gdms_map where map_id = "+project.getMapID());   
-						name = resultSet.getString(1);	
-						connection.close();
-					} catch (Exception e) {  
-					}
 					LinkageMapDatasetLoader lLoader= new LinkageMapDatasetLoader();
-					name = "RIL-3 (ICGS 44 x ICGS 76) ()";
+					name=manager.getMapNameById(project.getMapID()) + " ()";
 					rModel = lLoader.load(name);
 
 					try{
@@ -268,15 +261,24 @@ public class LoadProjectAction implements IWorkbenchWindowActionDelegate{
 					//---start set parent data
 					List<SelectedGenotype> parents = mbdtmanager.getParentData(gid);
 					TargetGenotype tview1 = new TargetGenotype();
-					
+					List acc = new ArrayList();
 					List<String> tgen = new ArrayList();
 					for(int i1 =0; i1< parents.size(); i1++){
 						if(parents.get(i1).getType().toString()=="SD" ){
-							tgen.add(gmanager.getNamesByGID(parents.get(i1).getGid(), null, null).get(0).getNval());
+//							tgen.add(gmanager.getNamesByGID(parents.get(i1).getGid(), 0, null).get(0).getNval());
+//							System.out.println(gmanager.getNamesByGID(parents.get(i1).getGid(), 0, null).get(0).getNval());
+							
+							acc = new ArrayList();
+							acc.add(parents.get(i1).getGid());
+							List <AccMetadataSet> accnids = manager.getGdmsAccMetadatasetByGid(acc,0,(int) manager.countGdmsAccMetadatasetByGid(acc));
+							tgen.add(gmanager.getGermplasmNameByID(accnids.get(0).getNameId()).getNval());
 							tgen.add("Donor");
 						}
 						else if(parents.get(i1).getType().toString()=="SR"){
-							tgen.add(gmanager.getNamesByGID(parents.get(i1).getGid(), null, null).get(0).getNval());
+							acc = new ArrayList();
+							acc.add(parents.get(i1).getGid());
+							List <AccMetadataSet> accnids = manager.getGdmsAccMetadatasetByGid(acc,0,(int) manager.countGdmsAccMetadatasetByGid(acc));
+							tgen.add(gmanager.getGermplasmNameByID(accnids.get(0).getNameId()).getNval());
 							tgen.add("Recurrent");
 						}	
 					}

@@ -69,8 +69,6 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 
 	public void createControl(Composite parent) {
 		setPageComplete(false);
-		System.err.println();
-		
 		Composite container = new Composite(parent,SWT.NONE);
 //		container.setLayout(new GridLayout(2,false));
 		GridLayout gridLayout = new GridLayout();
@@ -164,8 +162,7 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(TargetGenotype.class.getName()).getViewSite().getActionBars().getStatusLineManager().setMessage(file.getAbsolutePath());
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// TODO Auto-generated catch block
 		}
 		
 		
@@ -177,7 +174,6 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 		lblError.setForeground(ColorConstants.red);
 		lblError.setSize(260, 150);
 		}catch(Exception e){
-			e.printStackTrace();
 		}
 		setControl(container);		
 	}
@@ -240,7 +236,7 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 		String tBox4 = txt4.getText();
 		String tBox5 = combo.getText();
 		
-		String validMsg = "Enter a valid Genotype File Path !!";
+		String validMsg = "Enter a valid File Path !!";
 		String noFile = "File Does not exists !!";
 		
 		if((tBox1.length() == 0) && (tBox2.length() == 0) && (tBox3.length() == 0) && (tBox4.length() == 0)){
@@ -265,110 +261,122 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 				
 				
 				if ( ! (e.getSource().equals(txt2)) && ! (e.getSource().equals(txt3)) && (!e.getSource().equals(txt4))   &&!(tBox5.equals(""))) {
-					rootModel.setGenotypePath(tBox1);
-					rootModel.setHaploidlevel(tBox5);
-				
-					GenotypeValidation  GenoValidation = new GenotypeValidation();					
-					genotypeLoaderboolean =true;
-					String gValidation = "";
-					String gError="";
-					List genotest =GenoValidation.GenotypeValidation();
-					
-					
-					for(int i=0;i<genotest.size();i++){
-						String type = (String) genotest.get(i);
+					try {
+						rootModel.setGenotypePath(tBox1);
+						rootModel.setHaploidlevel(tBox5);
+
+						GenotypeValidation  GenoValidation = new GenotypeValidation();					
+						genotypeLoaderboolean =true;
+						String gValidation = "";
+						String gError="";
+						List genotest =GenoValidation.GenotypeValidation();
 						
-						if(i<5){
-						gValidation =gValidation+"\n"+type;
+						
+						for(int i=0;i<genotest.size();i++){
+							String type = (String) genotest.get(i);
+							
+							if(i<5){
+							gValidation =gValidation+"\n"+type;
+							}
+							else{
+							gError=gError+"\n"+type;	
+							}
 						}
-						else{
-						gError=gError+"\n"+type;	
-						}
+						
+											
+						lblSummary.append(gValidation);
+						lblError.append(gError);
+					} catch (Exception e1) {
 					}
-					
-										
-					lblSummary.append(gValidation);
-					lblError.append(gError);
 					
 		
 				} else if (e.widget.equals(txt2) ){
-					rootModel.setLinkagemapPath(tBox2);
-					LinkageMapValidation  linkageValidation = new LinkageMapValidation();
-					linkageLoaderbollean=true;
-					String lValidation = "";
-					String lError="";
-					List Linkagetest =linkageValidation.LinkageValidation();
-					
-					
-					for(int i=0;i<Linkagetest.size();i++){
-						String type = (String) Linkagetest.get(i);
+					try {
+						rootModel.setLinkagemapPath(tBox2);
+						LinkageMapValidation  linkageValidation = new LinkageMapValidation();
+						linkageLoaderbollean=true;
+						String lValidation = "";
+						String lError="";
+						List Linkagetest =linkageValidation.LinkageValidation();
 						
-						if(i<4){
-							lValidation =lValidation+"\n"+type;
-						}
-						else{
-							lError=lError+"\n"+type;	
+						
+						for(int i=0;i<Linkagetest.size();i++){
+							String type = (String) Linkagetest.get(i);
+							
+							if(i<4){
+								lValidation =lValidation+"\n"+type;
+							}
+							else{
+								lError=lError+"\n"+type;	
+							}
+							
 						}
 						
+						/*if((rootModel.getLinageMap_Error() == true)&&(genotypeLoaderboolean == true))
+						{
+							linkageLoaderbollean=false;
+						}*/
+						lblSummary.append(lValidation);
+						lblError.append(lError);
+					} catch (Exception e1) {
 					}
-					
-					/*if((rootModel.getLinageMap_Error() == true)&&(genotypeLoaderboolean == true))
-					{
-						linkageLoaderbollean=false;
-					}*/
-					lblSummary.append(lValidation);
-					lblError.append(lError);
 					
 							} 
 				else if(e.widget.equals(txt3))
 				{
-					rootModel.setQtlPath(tBox3);
-					QtlValidation  qtlValidation = new QtlValidation();
-					List qtltest = qtlValidation.qtlValidation();
-					qtlLoaderbollean=true;
-					
-					String qValidation = "";
-					String qError="";
-					
-					
-					for(int i=0;i<qtltest.size();i++){
-						String type = (String) qtltest.get(i);
+					try {
+						rootModel.setQtlPath(tBox3);
+						QtlValidation  qtlValidation = new QtlValidation();
+						List qtltest = qtlValidation.qtlValidation();
+						qtlLoaderbollean=true;
 						
-						if(i<4){
-							qValidation =qValidation+"\n"+type;
-						}
-						else{
-							qError=qError+"\n"+type;	
-						}
+						String qValidation = "";
+						String qError="";
 						
+						
+						for(int i=0;i<qtltest.size();i++){
+							String type = (String) qtltest.get(i);
+							
+							if(i<4){
+								qValidation =qValidation+"\n"+type;
+							}
+							else{
+								qError=qError+"\n"+type;	
+							}
+							
+						}
+						lblSummary.append(qValidation);
+						lblError.append(qError);
+					} catch (Exception e1) {
 					}
-					lblSummary.append(qValidation);
-					lblError.append(qError);
 					
 				}
 				 else if(e.widget.equals(txt4))
 					{
-					rootModel.setPhenotypePath(tBox4);
-					PhenotypeValidation  phenoValidation = new PhenotypeValidation();
-					List phenotest =	phenoValidation.phenoValidation();
-					phenoLoaderbollean=true;
-					String pValidation = "";
-					String pError="";
-					
-					
-					for(int i=0;i<phenotest.size();i++){
-						String type = (String) phenotest.get(i);
+					try {
+						rootModel.setPhenotypePath(tBox4);
+						PhenotypeValidation  phenoValidation = new PhenotypeValidation();
+						List phenotest =	phenoValidation.phenoValidation();
+						phenoLoaderbollean=true;
+						String pValidation = "";
+						String pError="";
 						
-						if(i<3){
-						pValidation =pValidation+"\n"+type;
-						}
-						else{
-						pError=pError+"\n"+type;	
-						}
 						
+						for(int i=0;i<phenotest.size();i++){
+							String type = (String) phenotest.get(i);
+							
+							if(i<3){
+							pValidation =pValidation+"\n"+type;
+							}
+							else{
+							pError=pError+"\n"+type;	
+							}
+							
+						}
+						lblSummary.append(pValidation);
+						lblError.append(pError);
+					} catch (Exception e1) {
 					}
-					lblSummary.append(pValidation);
-					lblError.append(pError);
 					}
 				if( !(rootModel.getGeneration()== null) ||(genotypeLoaderboolean == true && linkageLoaderbollean == true) )
 				{
@@ -377,12 +385,11 @@ public class FilesImportPage extends WizardPage implements SelectionListener, Mo
 				setPageComplete(true);
 			}
 				else{
-				
 				setPageComplete(false);
 			}
 			} catch (RuntimeException e1) {
 				setErrorMessage("Invalid File");
-				setPageComplete(false);
+//				setPageComplete(false);
 			}
 		}	
 		

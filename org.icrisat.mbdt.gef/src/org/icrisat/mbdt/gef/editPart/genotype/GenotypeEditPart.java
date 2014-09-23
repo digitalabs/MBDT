@@ -78,12 +78,15 @@ public class GenotypeEditPart extends AbstractGraphicalEditPart {
 			String accession_of_interest = "";
 
 			if (linkage.getHideActionStatus() == true) {
-				for (Iterator<String> itAcc = linkage.getAccession_of_interest().iterator(); itAcc.hasNext();) {
-					accession_of_interest = itAcc.next();
-					
-					if (gh1.contains(accession_of_interest)) {
-						// gh1.remove(accession_of_interest);
+				try {
+					for (Iterator<String> itAcc = linkage.getAccession_of_interest().iterator(); itAcc.hasNext();) {
+						accession_of_interest = itAcc.next();
+						
+						if (gh1.contains(accession_of_interest)) {
+							// gh1.remove(accession_of_interest);
+						}
 					}
+				} catch (Exception e) {
 				}
 				linkage.setHideActionStatus(false);
 			}

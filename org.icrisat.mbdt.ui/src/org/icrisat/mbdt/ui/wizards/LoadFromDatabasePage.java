@@ -1,10 +1,6 @@
 package org.icrisat.mbdt.ui.wizards;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +21,24 @@ import org.eclipse.swt.widgets.Text;
 import org.generationcp.middleware.domain.etl.StudyDetails;
 import org.generationcp.middleware.domain.oms.StudyType;
 import org.generationcp.middleware.exceptions.MiddlewareQueryException;
+import org.generationcp.middleware.hibernate.HibernateSessionPerRequestProvider;
+import org.generationcp.middleware.hibernate.SessionFactoryUtil;
 import org.generationcp.middleware.manager.Database;
 import org.generationcp.middleware.manager.DatabaseConnectionParameters;
 import org.generationcp.middleware.manager.ManagerFactory;
 import org.generationcp.middleware.manager.StudyDataManagerImpl;
+import org.generationcp.middleware.manager.WorkbenchDataManagerImpl;
 import org.generationcp.middleware.manager.api.GenotypicDataManager;
 import org.generationcp.middleware.manager.api.StudyDataManager;
+import org.generationcp.middleware.manager.api.WorkbenchDataManager;
 import org.generationcp.middleware.pojos.gdms.AllelicValueWithMarkerIdElement;
 import org.generationcp.middleware.pojos.gdms.DatasetElement;
 import org.generationcp.middleware.pojos.gdms.Map;
 import org.generationcp.middleware.pojos.gdms.MapDetailElement;
 import org.generationcp.middleware.pojos.gdms.QtlDetailElement;
 import org.generationcp.middleware.pojos.gdms.QtlDetails;
+import org.hibernate.SessionFactory;
+import org.icrisat.mbdt.model.CommonModel.MBDTModel;
 import org.icrisat.mbdt.ui.Activator;
 
 public class LoadFromDatabasePage extends WizardPage implements ModifyListener, SelectionListener {
@@ -105,8 +107,9 @@ public class LoadFromDatabasePage extends WizardPage implements ModifyListener, 
 			manager=factory.getGenotypicDataManager();
 			phenomanager = factory.getNewStudyDataManager();
 			
+			
+			
 		} catch (Exception e) { 
-			e.printStackTrace();
 		} 
 		
 		//-----Start-----Loading Genotype datasets 
@@ -119,13 +122,12 @@ public class LoadFromDatabasePage extends WizardPage implements ModifyListener, 
 		try {
 			glist = manager.getDatasetNames(0, 20, Database.CENTRAL);
 		} catch (MiddlewareQueryException e) {
-			e.printStackTrace();
 		}
 
 		for(int i=0;i<glist.size();i++){
 			comboGeno.add(glist.get(i));
 		}
-
+		
 		comboGeno.addSelectionListener(new SelectionAdapter(){			
 			public void widgetSelected(SelectionEvent e) {
 				if(comboMap.getText() != null){
@@ -187,7 +189,6 @@ public class LoadFromDatabasePage extends WizardPage implements ModifyListener, 
 					}*/
 					
 				} catch (Exception e1) {
-					e1.printStackTrace();
 				}
 			}
 		});

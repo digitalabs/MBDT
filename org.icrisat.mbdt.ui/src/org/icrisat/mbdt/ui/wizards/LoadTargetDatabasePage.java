@@ -31,6 +31,7 @@ import org.generationcp.middleware.manager.Database;
 import org.generationcp.middleware.manager.DatabaseConnectionParameters;
 import org.generationcp.middleware.manager.GdmsType;
 import org.generationcp.middleware.manager.ManagerFactory;
+import org.generationcp.middleware.manager.WorkbenchDataManagerImpl;
 import org.generationcp.middleware.manager.api.GenotypicDataManager;
 import org.generationcp.middleware.manager.api.MBDTDataManager;
 import org.generationcp.middleware.pojos.gdms.Dataset;

@@ -50,4 +50,4 @@ Bundle-ClassPath: ostermillerutils_1_05_00.jar,
  jxl.jar,
  javax.ws.rs-api-2.0.jar,
  .,
- middleware-2.1.0-jar-with-dependencies.jar
+ middleware-3.0.0.RELEASE-jar-with-dependencies.jar

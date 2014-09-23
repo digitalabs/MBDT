@@ -179,6 +179,13 @@
                style="push">
          </action>
          <action
+               class="org.icrisat.mbdt.ui.actionSets.LoadTargetDatabaseAction"
+               id="org.icrisat.mbdt.ui.actionSets.LoadTargetDatabaseAction"
+               label="Load Target From Database"
+               menubarPath="File/additions"
+               style="push">
+         </action>
+         <action
                class="org.icrisat.mbdt.ui.actions.LoadProjectAction"
                id="org.icrisat.mbdt.ui.actions.LoadProjectAction"
                label="Load Project"
@@ -189,13 +196,6 @@
                class="org.icrisat.mbdt.ui.actionSets.LoadFromDatabaseAction"
                id="org.icrisat.mbdt.ui.actionSets.LoadFromDatabaseAction"
                label="Load From Database"
-               menubarPath="File/additions"
-               style="push">
-         </action>
-         <action
-               class="org.icrisat.mbdt.ui.actionSets.LoadTargetDatabaseAction"
-               id="org.icrisat.mbdt.ui.actionSets.LoadTargetDatabaseAction"
-               label="Load Target From Database"
                menubarPath="File/additions"
                style="push">
          </action>

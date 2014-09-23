@@ -1,16 +1,8 @@
 	package org.icrisat.mbdt.ui.actions;
 
-	import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+	import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -22,21 +14,23 @@ import org.eclipse.ui.PlatformUI;
 import org.generationcp.middleware.domain.mbdt.SelectedGenotypeEnum;
 import org.generationcp.middleware.exceptions.ConfigException;
 import org.generationcp.middleware.exceptions.MiddlewareQueryException;
+import org.generationcp.middleware.hibernate.HibernateSessionPerRequestProvider;
+import org.generationcp.middleware.hibernate.SessionFactoryUtil;
 import org.generationcp.middleware.manager.Database;
 import org.generationcp.middleware.manager.DatabaseConnectionParameters;
+import org.generationcp.middleware.manager.GetGermplasmByNameModes;
 import org.generationcp.middleware.manager.ManagerFactory;
-import org.generationcp.middleware.manager.Operation;
 import org.generationcp.middleware.manager.WorkbenchDataManagerImpl;
 import org.generationcp.middleware.manager.api.GenotypicDataManager;
 import org.generationcp.middleware.manager.api.GermplasmDataManager;
 import org.generationcp.middleware.manager.api.MBDTDataManager;
 import org.generationcp.middleware.manager.api.WorkbenchDataManager;
-import org.generationcp.middleware.pojos.Germplasm;
+import org.generationcp.middleware.pojos.GermplasmNameDetails;
 import org.generationcp.middleware.pojos.gdms.Marker;
-import org.generationcp.middleware.pojos.gdms.MarkerInfo;
 import org.generationcp.middleware.pojos.mbdt.MBDTGeneration;
 import org.generationcp.middleware.pojos.mbdt.MBDTProjectData;
 import org.generationcp.middleware.pojos.mbdt.SelectedGenotype;
+import org.hibernate.SessionFactory;
 import org.icrisat.mbdt.model.RootModel;
 import org.icrisat.mbdt.model.WorkbenchState;
 import org.icrisat.mbdt.model.Chromosome.Chromosome;
@@ -124,6 +118,9 @@ import org.icrisat.mbdt.ui.dialog.IsmabSaveAsDialog;
 						 String url = Platform.getLocation().toString().substring(0, Platform.getLocation().toString().lastIndexOf("/")+1);
 						 local = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","local");
 						 central = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","central");
+						 workbench = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","workbench");
+				         SessionFactory workbenchSessionFactory = SessionFactoryUtil.openSessionFactory(workbench);
+				         WorkbenchDataManager workbenchDataManager = new WorkbenchDataManagerImpl(new HibernateSessionPerRequestProvider(workbenchSessionFactory));
 						 factory = new ManagerFactory(local, central);
 						 mbdtmanager = factory.getMbdtDataManager();
 						 manager = factory.getGenotypicDataManager();
@@ -138,12 +135,14 @@ import org.icrisat.mbdt.ui.dialog.IsmabSaveAsDialog;
 						 project.setPhenoDatasetID(rootModel1.getPhenoDataset());
 						 project.setPrincipalInvestigator(manager.getDatasetDetailsByDatasetIds(did).get(0).getPrincipalInvestigator());
 						 try {
-							 System.out.println(MBDTModel.getMBDTModel().getWorkbenchDataManager().getWorkbenchRuntimeData().getUserId());
+//							 System.out.println(MBDTModel.getMBDTModel().getWorkbenchDataManager().getWorkbenchRuntimeData().getUserId());
+								
+							 WorkbenchDataManagerImpl wdmi= new WorkbenchDataManagerImpl(factory.getSessionProviderForLocal());
+							 System.out.println(wdmi.getWorkbenchRuntimeData().getUserId());
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						 project.setUserID(1);
+						 project.setUserID(workbenchDataManager.getWorkbenchRuntimeData().getUserId());
 						 project.setProjectName(projectName);
 						 project.setQtlID(rootModel1.getQtlDataset());
 						 int proj_id = mbdtmanager.setProjectData(project);
@@ -186,12 +185,26 @@ import org.icrisat.mbdt.ui.dialog.IsmabSaveAsDialog;
 						
 					//---start selected accessions
 //						System.out.println(rootModel1.getGenotype().get(0).getAccessions().get(0).getSelectedAccessions1().size()+".."+rootModel1.getGenotype().get(0).getAccessions().get(0).getSelectedAccessions().size());
-						List<Accessions> selacc = linkData.getSelectedAccessions();
-						List<Integer> glist = new ArrayList<Integer>();
-						for( int i=0; i<selacc.size(); i++){
-							glist.add(gmanager.getGermplasmByName(selacc.get(i).getName(), 0, (int) gmanager.countGermplasmByName(selacc.get(i).getName(),Operation.EQUAL),  Operation.EQUAL).get(0).getGid());
+						List<Integer> glist;
+						List acc = new ArrayList();
+						try {
+							List<Accessions> selacc = linkData.getSelectedAccessions();
+							glist = new ArrayList<Integer>();
+							
+							for( int i=0; i<selacc.size(); i++){
+								acc.add(selacc.get(i).getName());
+							}
+							List<GermplasmNameDetails> germplasmList = gmanager.getGermplasmNameDetailsByGermplasmNames(acc, GetGermplasmByNameModes.NORMAL);                           
+							for( int i=0; i<germplasmList.size(); i++){
+								System.out.println(germplasmList.get(i).getGermplasmId());
+								glist.add(germplasmList.get(i).getGermplasmId());
+								
+							}
+							mbdtmanager.setSelectedAccessions(g_id, glist);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-						mbdtmanager.setSelectedAccessions(g_id, glist);
 					//---end of Selected Accessions
 						
 					//---start of parent data
@@ -201,10 +214,14 @@ import org.icrisat.mbdt.ui.dialog.IsmabSaveAsDialog;
 						List<Parents> p = TargetGeno.getTargetGeno().getParents();
 						for(int i = 0; i < p.size(); i++){
 						if(p.get(i).getType().equals("Donor")){
-							dlist.add(gmanager.getGermplasmByName(p.get(i).getParent(), 0, (int) gmanager.countGermplasmByName(p.get(i).getParent(), Operation.EQUAL),  Operation.EQUAL).get(0).getGid());
+							acc = new ArrayList();
+							acc.add(p.get(i).getParent());
+							dlist.add((gmanager.getGermplasmNameDetailsByGermplasmNames(acc, GetGermplasmByNameModes.NORMAL)).get(0).getGermplasmId());
 							mbdtmanager.setParentData(g_id, SelectedGenotypeEnum.D, dlist);
 						}else if(p.get(i).getType().equals("Recurrent")){
-							glist.add(gmanager.getGermplasmByName(p.get(i).getParent(), 0, (int) gmanager.countGermplasmByName(p.get(i).getParent(), Operation.EQUAL),  Operation.EQUAL).get(0).getGid());
+							acc = new ArrayList();
+							acc.add(p.get(i).getParent());
+							glist.add((gmanager.getGermplasmNameDetailsByGermplasmNames(acc, GetGermplasmByNameModes.NORMAL)).get(0).getGermplasmId());
 							mbdtmanager.setParentData(g_id, SelectedGenotypeEnum.R, glist);
 						}
 						}

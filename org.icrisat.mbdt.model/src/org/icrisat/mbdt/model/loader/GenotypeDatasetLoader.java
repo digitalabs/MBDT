@@ -13,6 +13,7 @@ import org.generationcp.middleware.manager.DatabaseConnectionParameters;
 import org.generationcp.middleware.manager.ManagerFactory;
 import org.generationcp.middleware.manager.api.GenotypicDataManager;
 import org.generationcp.middleware.pojos.Name;
+import org.generationcp.middleware.pojos.gdms.AccMetadataSet;
 import org.generationcp.middleware.pojos.gdms.AllelicValueWithMarkerIdElement;
 import org.generationcp.middleware.pojos.gdms.DatasetElement;
 import org.generationcp.middleware.pojos.gdms.MarkerIdMarkerNameElement;
@@ -123,7 +124,12 @@ import org.icrisat.mbdt.model.sessions.SessionChromosome;
 				List ldid = new ArrayList();
 				ldid.add(did);
 				
-				nids = manager.getNidsFromAccMetadatasetByDatasetIds(ldid, 0, (int) (manager.countNidsFromAccMetadatasetByDatasetIds(ldid))); 
+				//nids = manager.getNidsFromAccMetadatasetByDatasetIds(ldid, 0, (int) (manager.countNidsFromAccMetadatasetByDatasetIds(ldid))); 
+				
+				List<AccMetadataSet> results=manager.getAccMetadatasetsByDatasetIds(ldid, 0, (int) manager.countAccMetadatasetByDatasetIds(ldid));
+				for(AccMetadataSet res:results){
+					nids.add(res.getNameId());
+				}
 				names = manager.getNamesByNameIds(nids);
 				for(int n=0; n<names.size();n++){
 				gname.put(names.get(n).getGermplasmId(),names.get(n).getNval());

@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="jxl.jar"/>
 	<classpathentry kind="lib" path="ostermillerutils_1_05_00.jar"/>
 	<classpathentry kind="lib" path="/org.icrisat.mbdt.ui/middleware-2.1.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="/org.icrisat.mbdt.ui/middleware-3.0.0.RELEASE-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -62,14 +62,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 		return PERSPECTIVE_ID;
 	}
 	
-	/*@Override
-	public boolean preShutdown() {
-		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-		String dialogbox = "Question";
-		String question = "Are you sure you want to close this application?";
-		
-		return MessageDialog.openQuestion(shell, dialogbox , question);
-	}*/
+	
 	@Override
 	public void initialize(IWorkbenchConfigurer configurer) {
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
@@ -79,9 +72,8 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 				
 	try{
 		String[]  agrs= Platform.getCommandLineArgs();
+		if (!(agrs == null) && agrs.length != 0) {
 		File file =  new File(agrs[0]);
-		System.out.println("args..."+file.getCanonicalPath());
-//			File file =  new File("C:\\0.mbdt");
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(TargetGenotype.class.getName()).getViewSite().getActionBars().getStatusLineManager().setMessage(file.getAbsolutePath());
 			
 		FileInputStream fis = new FileInputStream(file);
@@ -104,11 +96,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 			rModel.setLoadFlag(true);
 			rModel.getRootModel().setLoadFlag(true);
 				
-//			rModel.setLoadProject(projectName);
-//			rModel.setLoadGeneration(generationName);
-//			
-//			rModel.getRootModel().setLoadProject(projectName);
-//			rModel.getRootModel().setLoadGeneration(generationName);
 			
 				AccessionListView view1 = (AccessionListView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(AccessionListView.class.getName());
 				GraphicalView gView = (GraphicalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(GraphicalView.class.getName());
@@ -142,16 +129,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 						}
 			        	
 			        	if(rModel.getSaveType().equals("TargetDataAvailable")){
-			        		try{
-					        /*for (Iterator<Object> iterator = targetGenoList.iterator(); iterator.hasNext();) {
-								GenotypeMarkers type = (GenotypeMarkers) iterator.next();
-								type = (GenotypeMarkers)targetGenoList.get(0);
-								EditPart editPart = (EditPart) gView.getGViewer().getEditPartRegistry().get((GenotypeMarkers)targetGenoList.get(0));
-								editParts.add(editPart);
-								gView.getGViewer().setSelection(new StructuredSelection(editParts));
-							}*/
-			        		}catch(Exception e){
-			        		}
 					        TargetGeno targetGeno = myDeserializedObject.getTargetGeno();
 				       
 							SessionTargetGenotype.getInstance().setTargetGeno(targetGeno);
@@ -189,6 +166,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 			     
             //}
             ois.close();
+		}
 		} catch (ClassNotFoundException e) {
 		} catch (IOException e) {
 		}

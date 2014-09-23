@@ -1069,23 +1069,26 @@ public void hookContextMenu() {
 							Parents parents= new Parents();
 							SelectedParents sp= new SelectedParents();
 							mParents= new MarkersSelectedParents();
-							parents.setParent(gh.get(h).toString());
-							parents.setType(typeGh.get(h).toString());							
-							sp.setSelectedParents(gh.get(h).toString());
-							mParents.setSelectedParents(gh.get(h).toString());
-							mParents.setType(typeGh.get(h).toString());
-							sp.setChrNo(chrName);
-							mParents.setAccession(newAcc);
-							mParents.setChrNo(chrName);		
-							mParents.setMarkerName(markerName);
-							mParents.setMarkerPosition(markerPosition);
-							mParents.setMarkerPrevPos(markerPrevPos);
-							mParents.setMarkerNextPos(markerNextPos);
-							mParents.setLabel(label);
-							mParents.setTargetAlleleValue(alleleValue);
-							sp.getMParents().add(mParents);
-							parents.getSelParents().add(sp);
-							tGeno.getParents().add(parents);
+							try {
+								parents.setParent(gh.get(h).toString());
+								parents.setType(typeGh.get(h).toString());							
+								sp.setSelectedParents(gh.get(h).toString());
+								mParents.setSelectedParents(gh.get(h).toString());
+								mParents.setType(typeGh.get(h).toString());
+								sp.setChrNo(chrName);
+								mParents.setAccession(newAcc);
+								mParents.setChrNo(chrName);		
+								mParents.setMarkerName(markerName);
+								mParents.setMarkerPosition(markerPosition);
+								mParents.setMarkerPrevPos(markerPrevPos);
+								mParents.setMarkerNextPos(markerNextPos);
+								mParents.setLabel(label);
+								mParents.setTargetAlleleValue(alleleValue);
+								sp.getMParents().add(mParents);
+								parents.getSelParents().add(sp);
+								tGeno.getParents().add(parents);
+							} catch (Exception e) {
+							}
 //							SessionTargetGenotype.getInstance().setTargetGeno(tGeno);
 							
 							if(typeGh.get(h).toString().equals("Recurrent")){
@@ -1135,14 +1138,14 @@ public void hookContextMenu() {
 						Session.getInstance().setRootModel(rootModel);
 						SessionTargetGenotype.getInstance().setTargetGeno(tGeno);
 				}catch(Exception e){
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 				
 			
 				
 			
 		}catch(Exception e){
-			e.printStackTrace();
+//			e.printStackTrace();
 		}	
 
 	}

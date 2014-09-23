@@ -30,6 +30,7 @@ import org.generationcp.middleware.manager.ManagerFactory;
 import org.generationcp.middleware.manager.api.GenotypicDataManager;
 import org.generationcp.middleware.manager.api.GermplasmDataManager;
 import org.generationcp.middleware.manager.api.MBDTDataManager;
+import org.generationcp.middleware.pojos.gdms.AccMetadataSet;
 import org.generationcp.middleware.pojos.mbdt.SelectedGenotype;
 import org.icrisat.mbdt.gef.views.GraphicalView;
 import org.icrisat.mbdt.model.RootModel;
@@ -45,6 +46,7 @@ public class SelectedAccessionsView extends ViewPart implements ISelectionListen
 	DatabaseConnectionParameters local, central;
 	ManagerFactory factory;
 	GermplasmDataManager gmanager;
+	GenotypicDataManager manager;
 	static HashMap type= new HashMap();
 	public SelectedAccessionsView() {
 		// TODO Auto-generated constructor stub
@@ -151,6 +153,7 @@ public class SelectedAccessionsView extends ViewPart implements ISelectionListen
 			 central = new DatabaseConnectionParameters(url+"DatabaseConfig.properties","central");
 			 factory = new ManagerFactory(local, central);
 			 gmanager = factory.getGermplasmDataManager();
+			 manager = factory.getGenotypicDataManager();
 		}  catch (Exception e1) {
 		}
 		linkage.setSortval("");
@@ -158,7 +161,10 @@ public class SelectedAccessionsView extends ViewPart implements ISelectionListen
 		try {
 			for(int i =0; i<acc.size(); i++ ) {
 				try {
-					 aname = gmanager.getNamesByGID(acc.get(i).getGid(), null, null).get(0).getNval();
+					List acc1 = new ArrayList();
+					acc1.add(acc.get(i).getGid());
+					List <AccMetadataSet> accnids = manager.getGdmsAccMetadatasetByGid(acc1,0,(int) manager.countGdmsAccMetadatasetByGid(acc1));
+					aname = gmanager.getGermplasmNameByID(accnids.get(0).getNameId()).getNval();
 				} catch (Exception e) {
 				}
 				for(int a = 0; a<rootModel.getGenotype().get(0).getAccessions().size(); a++){
